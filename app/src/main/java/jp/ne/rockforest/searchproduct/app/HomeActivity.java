@@ -1,36 +1,43 @@
 package jp.ne.rockforest.searchproduct.app;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import java.util.ArrayList;
 
 
-public class HomeActivity extends ActionBarActivity {
+import java.util.ArrayList;
+
+
+public class HomeActivity extends ActionBarActivity implements OnClickListener,LoaderCallbacks<ArrayList<String>> {
+
+    private static final int LOADER_ID = 0;
+
+    /**
+     * 自身のインスタンス.
+     */
+    private final HomeActivity self = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
+        findViewById(R.id.searchButton).setOnClickListener(self);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onClick(View v) {
+
+        ProductsLoader loder = new ProductsLoader(self);
+        loder.execute(0);
+
     }
 }
