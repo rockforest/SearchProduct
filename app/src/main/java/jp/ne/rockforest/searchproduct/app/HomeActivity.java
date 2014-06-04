@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends ActionBarActivity implements OnClickListener,LoaderCallbacks<ArrayList<String>> {
+public class HomeActivity extends ActionBarActivity implements OnClickListener{
 
     private static final int LOADER_ID = 0;
 
@@ -36,8 +36,8 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener,L
     @Override
     public void onClick(View v) {
 
-        ProductsLoader loder = new ProductsLoader(self);
-        loder.execute(0);
+        ProductsLoader pLoder = new ProductsLoader();
+        pLoder.execute("test");
 
     }
 }
