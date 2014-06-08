@@ -36,8 +36,10 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener{
     @Override
     public void onClick(View v) {
 
-        ProductsLoader pLoder = new ProductsLoader();
-        pLoder.execute("test");
+        //Todo　地図アクティビティ渡す
+        ProductsLoader pLoder = new ProductsLoader(this);
+        pLoder.execute("format=raw&task=ajax&format=json&action=get_shopmap");
+        //Todo 画面遷移
 
     }
 }

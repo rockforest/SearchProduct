@@ -1,7 +1,9 @@
 package jp.ne.rockforest.searchproduct.app;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,32 +14,35 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * APIをコールする非同期タスク
  */
 public class ProductsLoader extends AsyncTask<String, Void, String> {
 
+    private Activity productLoader;
+
+    private String uri = "http://gogosuper.in/gospa";
+    private String param;
+
     /**
      * コンストラクタ
      */
-    public ProductsLoader() {
-        super();
+    public ProductsLoader(Activity activity)
+    {
+        this.productLoader = activity;
     }
 
     /**
      * バックグランドで行う処理
      */
     @Override
-    protected String doInBackground(String... uri) {
+    protected String doInBackground(String... param) {
         try {
-            Log.d("Task", "start");
-            byte[] response = getJson().getBytes("UTF-8");
-            Log.d("result", new String(response,"UTF-8"));
+            this.param = param[0];
+            return getJson(this.param);
+
         } catch (Exception e) {
         }
         return null;
@@ -48,14 +53,19 @@ public class ProductsLoader extends AsyncTask<String, Void, String> {
      */
     @Override
     protected void onPostExecute(String result) {
+
+        //Todo 地図描画処理
+        TextView textView = (TextView)this.productLoader.findViewById(R.id.AsyncResult);
+        textView.setText(result);
+        Log.d("time","taskloader");
     }
 
     /**
      * JSONGet処理
      */
-    private String getJson() {
+    private String getJson(String param) {
 
-        String uri = "http://gogosuper.in/gospa?format=raw&task=ajax&format=json&action=get_shopmap";
+        String url = uri + "?" + param;
 
         HttpClient objHttp = new DefaultHttpClient();
         HttpParams params = objHttp.getParams();
@@ -63,21 +73,11 @@ public class ProductsLoader extends AsyncTask<String, Void, String> {
         HttpConnectionParams.setSoTimeout(params, 1000); //データ取得のタイムアウト
         String sReturn = "";
         try {
-            HttpGet objGet = new HttpGet(uri);
+            HttpGet objGet = new HttpGet(url);
             HttpResponse objResponse = objHttp.execute(objGet);
             if (objResponse.getStatusLine().getStatusCode() < 400) {
                 HttpEntity httpEntity = objResponse.getEntity();
-                String json = EntityUtils.toString(httpEntity, "SJIS");
-                Log.d("res",json);
-//                InputStreamReader objReader = new InputStreamReader(objStream);
-//                BufferedReader objBuf = new BufferedReader(objReader);
-//                StringBuilder objJson = new StringBuilder();
-//                String sLine;
-//                while ((sLine = objBuf.readLine()) != null) {
-//                    objJson.append(sLine);
-//                }
-//                sReturn = objJson.toString();
-//                objStream.close();
+                sReturn = EntityUtils.toString(httpEntity);
             }
         } catch (IOException e) {
             return null;
