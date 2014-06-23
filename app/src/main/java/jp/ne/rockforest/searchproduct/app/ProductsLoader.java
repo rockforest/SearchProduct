@@ -55,9 +55,9 @@ public class ProductsLoader extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
 
         //Todo 地図描画処理
-        TextView textView = (TextView)this.productLoader.findViewById(R.id.AsyncResult);
-        textView.setText(result);
-        Log.d("time","taskloader");
+//        TextView textView = (TextView)this.productLoader.findViewById(R.id.AsyncResult);
+//        textView.setText(result);
+//        Log.d("time","taskloader");
     }
 
     /**

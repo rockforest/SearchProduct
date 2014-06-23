@@ -11,9 +11,7 @@ tools:context="jp.ne.rockforest.searchproduct.app.MapActivity">
 <fragment
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    class="com.google.android.gms.maps.MapFragment"
-    map:cameraTargetLat="35.41"
-    map:cameraTargetLng="139.41"
+    class="com.google.android.gms.maps.SupportMapFragment"
     />
 
 </RelativeLayout>
