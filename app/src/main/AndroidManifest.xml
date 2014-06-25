@@ -27,7 +27,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDp9OAqfqiEhwKpl3mQv5jSMmMuKFRMniA" />
+            android:value="AIzaSyD6F2iQV4StKR9-ReYJqHVn1ln_4sIC4t4" />
 
         <activity
             android:name="jp.ne.rockforest.searchproduct.app.HomeActivity"

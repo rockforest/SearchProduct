@@ -3,17 +3,18 @@ package jp.ne.rockforest.searchproduct.app;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -49,7 +50,21 @@ public class MapActivity extends FragmentActivity {
         MarkerOptions options = new MarkerOptions();
         options.position(location);
         map.addMarker(options);
+
+        // 現在地表示ボタンを有効にする
+        map.setMyLocationEnabled(true);
+
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // TODO Auto-generated method stub
+        // 現在地に移動
+        CameraPosition cameraPos = new CameraPosition.Builder()
+        .target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(7.0f)
+        .bearing(0).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
+        }
 
     private void getCurrentLocation() {
         // 接続されているときだけ現在地を取得

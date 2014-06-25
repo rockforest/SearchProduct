@@ -3,7 +3,7 @@ package jp.ne.rockforest.searchproduct.app;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
