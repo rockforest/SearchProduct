@@ -1,6 +1,8 @@
 package jp.ne.rockforest.searchproduct.app;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Service;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
@@ -55,9 +57,11 @@ public class ProductsLoader extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
 
         //Todo 地図描画処理
-//        TextView textView = (TextView)this.productLoader.findViewById(R.id.AsyncResult);
-//        textView.setText(result);
-//        Log.d("time","taskloader");
+        ActivityManager activityManager = (ActivityManager) productLoader.getSystemService(Service.ACTIVITY_SERVICE);
+        String className = activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
+        productLoader.getIntent();
+        Log.d("ok","ok");
+
     }
 
     /**

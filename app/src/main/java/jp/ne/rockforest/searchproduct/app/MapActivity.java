@@ -44,37 +44,27 @@ public class MapActivity extends FragmentActivity {
                 CameraUpdateFactory.newLatLngZoom(location, 15);
         map.moveCamera(cu);
 
-//        getCurrentLocation();
-
-        //マーカー設定
-        MarkerOptions options = new MarkerOptions();
-        options.position(location);
-        map.addMarker(options);
-
         // 現在地表示ボタンを有効にする
         map.setMyLocationEnabled(true);
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        // TODO Auto-generated method stub
-        // 現在地に移動
-        CameraPosition cameraPos = new CameraPosition.Builder()
-        .target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(7.0f)
-        .bearing(0).build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
-        }
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        // TODO Auto-generated method stub
+//        // 現在地に移動
+//        CameraPosition cameraPos = new CameraPosition.Builder()
+//        .target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(7.0f)
+//        .bearing(0).build();
+//        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
+//        }
 
-    private void getCurrentLocation() {
-        // 接続されているときだけ現在地を取得
-        if (mLocationClient.isConnected()) {
-            Location location = mLocationClient.getLastLocation();
-            //処理を書く
-            Log.d("latitude", "now!");
-        } else {
-            //処理を書く
-        }
+    //マーカー設定
+    public void setMarker() {
+        MarkerOptions options = new MarkerOptions();
+        LatLng position = new LatLng(43.0675, 141.350784);
+        options.position(position);
+        map.addMarker(options);
     }
 
 
