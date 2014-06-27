@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
@@ -23,17 +22,24 @@ import java.io.IOException;
  */
 public class ProductsLoader extends AsyncTask<String, Void, String> {
 
-    private Activity productLoader;
+    //Activiyへのコールバック用interface
+    public interface AsyncTaskCallback {
+        void preExecute();
+        void postExecute(String result);
+        void progressUpdate(int progress);
+        void cancel();
+    }
 
     private String uri = "http://gogosuper.in/gospa";
     private String param;
+    private AsyncTaskCallback callback = null;
 
     /**
      * コンストラクタ
      */
-    public ProductsLoader(Activity activity)
+    public ProductsLoader(AsyncTaskCallback _callback)
     {
-        this.productLoader = activity;
+        this.callback = _callback;
     }
 
     /**
@@ -56,11 +62,9 @@ public class ProductsLoader extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
 
-        //Todo 地図描画処理
-        ActivityManager activityManager = (ActivityManager) productLoader.getSystemService(Service.ACTIVITY_SERVICE);
-        String className = activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
-        productLoader.getIntent();
-        Log.d("ok","ok");
+        //Todo 情報をMapアクティビティに渡す
+        super.onPostExecute(result);
+        callback.postExecute(result);
 
     }
 

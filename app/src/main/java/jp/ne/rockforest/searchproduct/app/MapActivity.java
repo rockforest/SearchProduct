@@ -33,7 +33,27 @@ public class MapActivity extends FragmentActivity {
                 getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap();
 
-        MapsInitializer.initialize(this);
+        //MapsInitializer.initialize(this);
+
+        //製品別価格情報取得
+        //Todo intentからパラメータ取得
+        ProductsLoader pl = new ProductsLoader(new ProductsLoader.AsyncTaskCallback(){
+            public void preExecute() {
+                //だいたいの場合ダイアログの表示などを行う
+            }
+            public void postExecute(String result) {
+                //AsyncTaskの結果を受け取ってなんかする
+                //Log.d("result",result);
+                setMarker();
+            }
+            public void progressUpdate(int progress) {
+                //だいたいプログレスダイアログを進める
+            }
+            public void cancel() {
+                //キャンセルされた時になんかする
+            }
+        });
+        pl.execute("format=raw&task=ajax&format=json&action=get_shopmap");
 
         moveToMap();
     }

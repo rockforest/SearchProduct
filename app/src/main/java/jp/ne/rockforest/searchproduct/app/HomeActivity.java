@@ -37,11 +37,10 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener{
     @Override
     public void onClick(View v) {
 
-        //製品別価格情報取得
-        ProductsLoader pLoder = new ProductsLoader(this);
-        pLoder.execute("format=raw&task=ajax&format=json&action=get_shopmap");
         //Todo 画面遷移
         Intent intent  = new Intent(HomeActivity.this, MapActivity.class);
+        //Todo フィールドから文字列取得する
+        intent.putExtra("param","豚肉");
         startActivity(intent);
 
     }
