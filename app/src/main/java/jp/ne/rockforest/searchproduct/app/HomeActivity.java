@@ -37,7 +37,7 @@ public class HomeActivity extends ActionBarActivity implements OnClickListener{
     @Override
     public void onClick(View v) {
 
-        //Todo 画面遷移
+        //ホーム画面から地図画面に遷移
         Intent intent  = new Intent(HomeActivity.this, MapActivity.class);
         //Todo フィールドから文字列取得する
         intent.putExtra("param","豚肉");

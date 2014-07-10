@@ -18,6 +18,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MapActivity extends FragmentActivity {
 
@@ -43,8 +46,7 @@ public class MapActivity extends FragmentActivity {
             }
             public void postExecute(String result) {
                 //AsyncTaskの結果を受け取ってなんかする
-                //Log.d("result",result);
-                setMarker();
+                setMarker(result);
             }
             public void progressUpdate(int progress) {
                 //だいたいプログレスダイアログを進める
@@ -80,7 +82,17 @@ public class MapActivity extends FragmentActivity {
 //        }
 
     //マーカー設定
-    public void setMarker() {
+    public void setMarker(String result) {
+
+        try{
+            JSONObject rootObject = new JSONObject(result);
+
+            Log.d("ok","ok");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+
+        }
         MarkerOptions options = new MarkerOptions();
         LatLng position = new LatLng(43.0675, 141.350784);
         options.position(position);
